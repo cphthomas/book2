@@ -75,7 +75,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
 
     // allPosts = allPosts.sort(function (a, b) {
     //     return a.node.title.localeCompare(b.node.title, undefined, {
-    //         numeric: true
+    //         numeric: true,
     //         sensitivity: "base",
     //     });
     // });

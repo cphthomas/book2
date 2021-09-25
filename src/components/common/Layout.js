@@ -40,11 +40,11 @@ const searchIndices = [{ name: `Book_two`, title: `Posts` }];
  */
 const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
     const helpImages = [
-        "https://res.cloudinary.com/hndu2f8jv/video/upload/v1628170049/helpvideos/koeb.mp4",
-        "https://res.cloudinary.com/hndu2f8jv/video/upload/v1628170033/helpvideos/login.mp4",
-        "https://res.cloudinary.com/hndu2f8jv/video/upload/v1628170039/helpvideos/passwordglemt.mp4",
-        "https://res.cloudinary.com/hndu2f8jv/video/upload/v1628170050/helpvideos/afmeld.mp4",
-        "https://res.cloudinary.com/hndu2f8jv/video/upload/v1628170049/helpvideos/skift.mp4",
+        "http://docs.google.com/uc?export=open&id=1vN13Aa_IsqFkkSHWfZ6TjjSF4Ibbyr64",
+        "http://docs.google.com/uc?export=open&id=1Vdm_bf3Gqye-foUMx2jcDj-cK9GUY9Tn",
+        "http://docs.google.com/uc?export=open&id=1Z9WbhylzxF7B-Xi_wcRNYAvhbd7jXgHH",
+        "http://docs.google.com/uc?export=open&id=1s1DJlvg0m0-r-Zuw0Jn2ZYShAtciEKSJ",
+        "http://docs.google.com/uc?export=open&id=1EHvJmrwS2C_VrOXMyf4Kf5W9rpv5_NLf",
         "https://mdbootstrap.com/img/Photos/Slides/img%20(19).jpg",
     ];
     const [userLoggedIn, setUserLoggedIn] = useState("-1");

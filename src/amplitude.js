@@ -39,12 +39,12 @@ function amplitudePlayerScript() {
             if (imgTagData == playlist) {
                 $(this).attr(
                     "src",
-                    "http://docs.google.com/uc?export=open&id=114iX14rGzeY-uPvJ388dqksId2eKrUSV"
+                    "https://storage.googleapis.com/tepedu/podcastimage/giphy_1_rrpccq.gif"
                 );
             } else {
                 $(this).attr(
                     "src",
-                    "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd"
+                    "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg"
                 );
             }
         });
@@ -57,7 +57,7 @@ function amplitudePlayerScript() {
             if (imgTagData == playlist) {
                 $(this).attr(
                     "src",
-                    "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd"
+                    "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg"
                 );
             }
         });
@@ -126,198 +126,198 @@ function amplitudePlayerScript() {
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1YG4iwCN4GIDdw0tbSZo6ZlvCj-CR5Kc0",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/1._intro.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "2 Variable",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1s3HeeBjaM_6MoRo0VFv7Q4PvGfzsCr-e",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/2._Variable.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "3. Beskrivende statistik",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1mZ5igoYnFqjYvkblh5mq1A0A4p54kGLi",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/3._Beskrivende_statistik.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "4. Normalfordelingen",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1K_a24l3mHBgyq9eo2m2ugIk8ZGxhbLO6",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/4._Normalfordelingen.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "5. Konfidensintervaller kvantitative variable",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1uHyvpZvOKvrysd9TyLIrtnvEmUKK3wjZ",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/5._Konfidensintervaller_kvantitative_variable.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "6.0 Hypotesetests kvantitative variable",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1_Jpu1K7eDMklw2GbZZmr7Vf8KXnQopgV",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/6.0._Hypotesetests_kvantitative_variable.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "6.1 Type 1 og type 2 fejl",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1i4DTXCQZzrDNSbPi8NNPsv9gQqf0Gc_f",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/6.1_Type_1_og_type_2_fejl.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "7.0 Konfidensinterval 1 andel",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1kIJRQ_it0vHNwk-CkKuHGChqBg6HDqHi",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/7.0_Konfidensinterval_1_andel.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "7.1 Test 1 andel",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1xh4eECOvDnEMj9htaFsBh4yPEZxEGS0M",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/7.1_Test_1_andel.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "8. Test af 2 andele",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=16o1mEht2h5vk5E8lJ9GXhNvjYJdRCMrY",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/8._Test_af_2_andele.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "9. Test af 2 middelværdier",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1jsfzgX55eZF8i0AMMLNwLPzCffInmGqU",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/9._Test_af_2_middelv%C3%A6rdier.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "10. Korrelation",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1uWhwQlCfCT3-u3HsxrMD5UO2Gu7gK7IC",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/10._Korrelation.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "11.1 Simpel lineær regression",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1dJlhLS5h_-LWAOcumHH7d-neYRl3Qga8",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/11.1_Simpel_line%C3%A6r_regression.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "11.2 Multipel lineær regression",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1ot4JcfVROcUDikgF7WgRxIBHsP2YmuXz",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/11.2_Multipel_line%C3%A6r_regression.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "11.3 Lineær regression forudsaetninger",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1xKp09ikKxU1VVoLelqcQdkbl1JjL6r_R",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/11.3_Line%C3%A6r_regression_foruds%C3%A6tninger.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "15 Stikprøveudvælgelse",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1AgJgiLyRgjOWtLnUQZTRyDEptxcuCVtZ",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/15._Stikpr%C3%B8veudv%C3%A6lgelse.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "17.1 Chi i anden tests",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1C0PTaDWWaiQ6L3a6BHsmney0zdGKpSIl",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/17.1_Chi_i_anden_tests.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "17.2 Goodness of fit tests",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1UahFaSHzAQKEtxejMPVMTqVAhYngRj4I",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/17.2_Goodness_of_fit_test.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "18 Anova",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1rGdjizrtY3O9X_6tSYrYmgwH84KJWzSx",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/18._ANOVA.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "20 Faktoranalyse",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1G_2SymzoqlEQYY48--0l_rXDth1_oQnF",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/20._Faktoranalyse.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "21 Klyngeanalyse",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1iHoohUsS0z0wyVG8J21rQLNChqKO7muN",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/21._Klyngeanalyse.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                     {
                         name: "22 ARIMA",
                         artist: "Thomas Petersen",
                         album: "Statistik",
                         url:
-                            "http://docs.google.com/uc?export=open&id=1YMY92TTQBO4Wtgw_x4YaS0ltv2RjHYe4",
+                            "https://storage.googleapis.com/tepedu/statistik_podcasts/22._ARIMA.m4a",
                         cover_art_url:
-                            "http://docs.google.com/uc?export=open&id=111d2e_oa2FrnfRhQVs3rC9l_LLu8i3Wd",
+                            "https://storage.googleapis.com/tepedu/podcastimage/spole_aelus7.jpg",
                     },
                 ],
             },

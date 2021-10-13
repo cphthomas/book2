@@ -2,20 +2,9 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { Link, StaticQuery, graphql } from "gatsby";
-import Img from "gatsby-image";
-import {
-    Button,
-    Dropdown,
-    ButtonGroup,
-    Modal,
-    Row,
-    Col,
-} from "react-bootstrap";
 import { Navigation } from ".";
-import config from "../../utils/siteConfig";
 import Cookies from "universal-cookie";
 import "../../styles/layout.css";
-import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -24,11 +13,10 @@ import customNewJS from "../../newscript.js";
 import handsonJS from "../../handson.js";
 import amplitudeJS from "../../amplitude.js";
 import highchartJS from "../../highcharts.js";
+import FilterResults from "react-filter-search";
 
 // Styles
 import "../../styles/app.css";
-import Search from "../search";
-const searchIndices = [{ name: `Book_two`, title: `Posts` }];
 
 /**
  * Main layout component
@@ -61,6 +49,8 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
     const [helpModalImageSrc, setHelpModalImageSrc] = useState("");
 
     const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PK_KEY);
+    const [value, setValue] = useState("");
+    const [jsonData, setJsonData] = useState("");
 
     const cookies = new Cookies();
     const site = data.allGhostSettings.edges[0].node;
@@ -79,6 +69,11 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
     //         sensitivity: "base",
     //     });
     // });
+
+    let postPath = "";
+    if (typeof window !== "undefined") {
+        postPath = window.location.pathname;
+    }
 
     function userLogout() {
         cookies.remove("loggedInUser");
@@ -107,6 +102,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
         handsonJS();
         amplitudeJS();
         highchartJS();
+        searchRes();
 
         const userEmail = cookies.get("loggedInUser");
         let customerStripeId = "";
@@ -204,6 +200,50 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
         }
     }, []);
 
+    //https://jsonplaceholder.typicode.com/users
+    ///.netlify/functions/all-posts
+
+    async function searchRes() {
+        if (postPath == "/") {
+            fetch("/.netlify/functions/all-posts")
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json.posts);
+                    setJsonData(json.posts);
+                });
+        }
+    }
+
+    async function handleChange(event) {
+        const { value } = event.target;
+        setValue(value);
+    }
+
+    async function handleKeyUp(event) {
+        const { value } = event.target;
+        console.log(event.target);
+        setValue(value);
+    }
+
+    function handleFocus(event) {
+        setTimeout(() => {
+            setValue("");
+        }, 300);
+    }
+
+    async function serachInPage(e) {
+        let code = e.keyCode ? e.keyCode : e.which;
+        if (code == 13) {
+            if (
+                typeof window !== "undefined" &&
+                !window.find(e.target.value) &&
+                e.target.value != ""
+            ) {
+                alert("No result!");
+            }
+        }
+    }
+
     return (
         <>
             <Helmet>
@@ -253,8 +293,83 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                                         </li>
                                     </div>
                                 </div>
-                                {/* <ci-search></ci-search> */}
-                                <Search indices={searchIndices} />
+                                {jsonData != "" && postPath == "/" ? (
+                                    <div>
+                                        <div class="search-container-main">
+                                            <input
+                                                class="search-main"
+                                                id="searchleftmain"
+                                                type="search test"
+                                                name="q"
+                                                placeholder="Search"
+                                                value={value}
+                                                onChange={handleChange}
+                                                //onKeyUp={(e) => handleKeyUp(e)}
+                                                onBlur={(e) => handleFocus(e)}
+                                            />
+                                            <label
+                                                class="button-main searchbutton-main"
+                                                for="searchleftmain"
+                                            >
+                                                <span class="mglass-main">
+                                                    &#9906;
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <FilterResults
+                                            value={value}
+                                            data={jsonData}
+                                            renderResults={(results) => (
+                                                <div
+                                                    className={`searchFilter ${
+                                                        value
+                                                            ? ""
+                                                            : "filterHide"
+                                                    }`}
+                                                >
+                                                    {results.map((el) => (
+                                                        <div>
+                                                            {/* <span>
+                                                                {el.id}
+                                                            </span> */}
+                                                            <a
+                                                                href={
+                                                                    "/" +
+                                                                    el.slug
+                                                                }
+                                                            >
+                                                                {el.title}
+                                                            </a>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        />
+                                    </div>
+                                ) : null}
+                                {postPath != "/" ? (
+                                    <div class="search-container-main">
+                                        <input
+                                            class="search-main"
+                                            id="searchleft"
+                                            type="search test"
+                                            name="q"
+                                            onKeyUp={(e) => serachInPage(e)}
+                                            placeholder="Søg i kapitlet"
+                                        />
+                                        <label
+                                            class="button-main searchbutton-main"
+                                            for="searchleft"
+                                        >
+                                            <span class="mglass-main">
+                                                &#9906;
+                                            </span>
+                                        </label>
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
                                 <div className="site-nav-right">
                                     {userLoggedIn == "0" ? (
                                         <Link

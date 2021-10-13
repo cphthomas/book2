@@ -51,11 +51,6 @@
     background-color: #15171a !important;
     text-decoration: none !important;
 }
-.nav-item li a:hover {
-    /* background-color: unset !important;
-    text-decoration: underline !important;
-    color: #23527c !important; */
-}
 .nav-item .dropdown-menu {
     display: none;
 }
@@ -212,16 +207,6 @@ a:hover {
     justify-content: center !important;
 }
 
-.site-foot a {
-    /* display: block;
-    width: 70px;
-    background-color: rgba(000, 000, 000, 1) !important;
-    text-align: center;
-    color: white !important;
-    line-height: 25px;
-    text-decoration: none; */
-}
-
 .helpBtn {
     background-color: black !important;
     border-radius: 0px !important;
@@ -277,9 +262,13 @@ a:hover {
 
 .switch-on,
 .switch-off {
-    font-size: 13px !important;
+    font-size: 12px !important;
     font-family: sans-serif !important;
     background-color: black !important;
+}
+
+.switch-off.btn {
+    padding-left: 0.5em !important;
 }
 
 .modal-title {
@@ -299,4 +288,166 @@ a:hover {
 
 #exampleModal3 {
     padding-right: 0px !important;
+}
+
+.searchFilter {
+    position: absolute;
+    /* background: white;
+    color: black; */
+    background: black;
+    color: white;
+    padding: 1em;
+    max-height: 80vh;
+    /* overflow: scroll; */
+    width: 80vw;
+    max-width: 30em;
+    /* box-shadow: 0px 0px 5px 0px; */
+}
+
+.searchInput {
+    color: black;
+}
+
+.filterHide {
+    display: none;
+}
+
+.searchFilter a {
+    text-decoration: none;
+    /* color: black; */
+    color: white;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 1.5em 0 0.5em;
+    font-size: 1.3rem;
+    margin-bottom: 0.2em;
+}
+
+.searchFilter div:hover {
+    /* text-decoration: none; */
+    /* background-color: white;
+    color: black !important;
+    cursor: pointer; */
+}
+
+.searchFilter a:hover {
+    text-decoration: none;
+    background-color: white;
+    color: black;
+}
+
+.searchFilter div {
+    margin-bottom: 0.2em;
+}
+
+.button-main {
+    /* display: inline-block; */
+    /* margin: 4px 2px; */
+    font-size: 14px;
+    /* padding-left: 32px;
+    padding-right: 32px; */
+    /* height: 50px; */
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    /* -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none; */
+}
+
+.button-main:hover {
+    transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    color: black;
+}
+
+.search-container-main {
+    /* position: fixed;
+    display: inline-block; */
+    margin: 4px 2px;
+    height: 30px;
+    width: 50px;
+    /* vertical-align: bottom; */
+    bottom: 0px;
+    /* left: 180px; */
+    /* z-index: 99999; */
+}
+
+.mglass-main {
+    display: inline-block;
+    pointer-events: none;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+}
+
+.searchbutton-main {
+    /* position: absolute; */
+    font-size: 22px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.search-main:focus + .searchbutton-main {
+    transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    /* background-color: white; */
+    /* color: black; */
+    display: none;
+}
+
+.search-main {
+    position: absolute;
+    /* left: 49px; */
+    /* background-color: white; */
+    outline: none;
+    border: none;
+    padding: 0;
+    width: 0;
+    /* height: 70%; */
+    /* z-index: 10; */
+    transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    /* top: 3px; */
+    /* color: black; */
+    background-color: black;
+    font-size: 12px !important;
+    height: 25px !important;
+}
+
+.search-main::placeholder {
+    color: white;
+}
+
+.search-main:focus {
+    width: 150px;
+    padding: 0 2px 0 2px;
+    border: 1px black solid !important;
+    margin-top: 3px;
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 320px) and (max-device-width: 812px) and (orientation: portrait) {
+    .search-container-main {
+        left: 78px;
+    }
+
+    .search-main:focus {
+        width: 82px;
+        /* height: 50px !important; */
+    }
+
+    .search-main {
+    }
 }

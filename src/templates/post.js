@@ -157,8 +157,7 @@ const Post = ({ data, location, pageContext }) => {
         setSpeechTextEnable(checked);
         if (checked) {
         } else {
-            console.log(checked);
-            speech.cancel();
+            audio.pause();
         }
     }
 

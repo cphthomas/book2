@@ -11,8 +11,6 @@ import * as tocbot from "tocbot";
 import { constants } from "../utils/constants";
 import { Image } from "react-bootstrap";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
-import { useSpeechSynthesis } from "react-speech-kit";
-import Speech from "speak-tts";
 import postScript from "../post-script.js";
 import visJS from "../vis.js";
 import { navigate } from "gatsby";

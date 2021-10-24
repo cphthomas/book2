@@ -21,7 +21,10 @@ import { navigate } from "gatsby";
  *
  */
 const Post = ({ data, location, pageContext }) => {
-    let audio = new Audio('');
+    let audio;
+    if (typeof window !== "undefined") {
+        audio = new Audio("");
+    }
     const [nextPageUrl, setNextPageURL] = useState(
         pageContext.next ? pageContext.next.slug : ""
     );

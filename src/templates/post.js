@@ -21,7 +21,7 @@ import { navigate } from "gatsby";
  *
  */
 const Post = ({ data, location, pageContext }) => {
-    let audio;
+    let audio = new Audio('');
     const [nextPageUrl, setNextPageURL] = useState(
         pageContext.next ? pageContext.next.slug : ""
     );
@@ -162,6 +162,7 @@ const Post = ({ data, location, pageContext }) => {
     }
 
     async function selectedText() {
+        audio.pause();
         if (speechTextEnable && typeof window !== "undefined") {
             let textToSpeech = "";
             //if (typeof window !== "undefined") {

@@ -186,3 +186,17 @@ table {
 .accessMsg {
     padding-top: 0px;
 }
+
+.popup-tag {
+    position: absolute;
+    /* display: none; */
+    background-color: black;
+    color: white;
+    padding: 8px;
+    font-size: 12px;
+    /* font-weight: bold; */
+    /* text-decoration: underline; */
+    cursor: pointer;
+    /* -webkit-filter: drop-shadow(0 1px 10px rgba(113, 158, 206, 0.8)); */
+    z-index: 999;
+}

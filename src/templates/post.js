@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import { Helmet } from "react-helmet";
@@ -21,10 +21,10 @@ import { navigate } from "gatsby";
  *
  */
 const Post = ({ data, location, pageContext }) => {
-    let audio;
-    if (typeof window !== "undefined") {
-        audio = new Audio("");
-    }
+    // let audio;
+    // if (typeof window !== "undefined") {
+    //     audio = new Audio("");
+    // }
     const [nextPageUrl, setNextPageURL] = useState(
         pageContext.next ? pageContext.next.slug : ""
     );
@@ -45,7 +45,14 @@ const Post = ({ data, location, pageContext }) => {
     const [planType, setPlanType] = useState("");
     const [email, setEmail] = useState("");
     const [customerId, setCustomerId] = useState("");
-    const [speechTextEnable, setSpeechTextEnable] = useState(false);
+    const [selectedTextXCoor, setSelectedTextXCoor] = useState(0);
+    const [selectedTextYCoor, setSelectedTextYCoor] = useState(0);
+    const [enableTextToPlayPopup, setEnableTextToPlayPopup] = useState("none");
+    const [userSelectedText, setUserSelectedText] = useState("");
+    //const [audio, setAudio] = useState(new Audio(""));
+
+    const [audioStatus, changeAudioStatus] = useState(false);
+    const myRef = useRef();
 
     useEffect(async () => {
         visJS();
@@ -164,53 +171,72 @@ const Post = ({ data, location, pageContext }) => {
         }
     }
 
-    async function selectedText() {
-        audio.pause();
-        if (speechTextEnable && typeof window !== "undefined") {
+    async function selectedText(event) {
+        if (typeof window !== "undefined") {
             let textToSpeech = "";
-            //if (typeof window !== "undefined") {
             textToSpeech = window.getSelection().toString();
-            //}
-            const url =
-                "https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyBpsYZKqwyVctQKamQf4StfhvSWSSz-2lE";
-            const data = {
-                input: {
-                    text: textToSpeech,
-                },
-                voice: {
-                    languageCode: "da-dk",
-                    name: "da-DK-Wavenet-A",
-                    ssmlGender: "FEMALE",
-                },
-                audioConfig: {
-                    audioEncoding: "MP3",
-                },
-            };
-            const otherparam = {
-                headers: {
-                    "content-type": "application/json; charset=UTF-8",
-                },
-                body: JSON.stringify(data),
-                method: "POST",
-            };
-            fetch(url, otherparam)
-                .then((data) => {
-                    return data.json();
-                })
-                .then((res) => {
-                    audio = new Audio(
-                        "data:audio/wav;base64," + res.audioContent
-                    );
-                    audio.play();
-                })
-                .catch((error) => {
-                    console.state.onError(error);
-                });
+            if (textToSpeech) {
+                setUserSelectedText(textToSpeech);
+                setEnableTextToPlayPopup("block");
+                setSelectedTextXCoor(event.pageX);
+                setSelectedTextYCoor(event.pageY);
+            }
         }
+    }
+
+    function playText() {
+        myRef.current.pause();
+        myRef.current.currentTime = 0;
+        setEnableTextToPlayPopup("none");
+        const url =
+            "https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyBpsYZKqwyVctQKamQf4StfhvSWSSz-2lE";
+        const data = {
+            input: {
+                text: userSelectedText,
+            },
+            voice: {
+                languageCode: "da-dk",
+                name: "da-DK-Wavenet-A",
+                ssmlGender: "FEMALE",
+            },
+            audioConfig: {
+                audioEncoding: "MP3",
+            },
+        };
+        const otherparam = {
+            headers: {
+                "content-type": "application/json; charset=UTF-8",
+            },
+            body: JSON.stringify(data),
+            method: "POST",
+        };
+        fetch(url, otherparam)
+            .then((data) => {
+                return data.json();
+            })
+            .then((res) => {
+                myRef.current.src = "data:audio/wav;base64," + res.audioContent;
+                myRef.current.play();
+            })
+            .catch((error) => {
+                console.state.onError(error);
+            });
     }
 
     return (
         <div>
+            <span
+                className="popup-tag"
+                style={{
+                    top: selectedTextYCoor,
+                    left: selectedTextXCoor,
+                    display: enableTextToPlayPopup,
+                }}
+                onClick={playText}
+            >
+                Tale
+            </span>
+            <audio ref={myRef} src="" />
             <MetaData data={data} location={location} type="article" />
             <Helmet>
                 <style type="text/css">{`${post?.codeinjection_styles}`}</style>
@@ -233,18 +259,6 @@ const Post = ({ data, location, pageContext }) => {
                                 />
                             </figure>
                         ) : null}
-                        <div className="switchBtn">
-                            <BootstrapSwitchButton
-                                checked={speechTextEnable}
-                                onstyle="dark"
-                                offstyle="dark"
-                                style="border"
-                                onlabel="Tale"
-                                offlabel="Ingen tale"
-                                onChange={enableDisableSpeech}
-                                style={{ border: "none" }}
-                            />
-                        </div>
                         <aside className="toc-container">
                             <div className="toc"></div>
                         </aside>
@@ -255,7 +269,7 @@ const Post = ({ data, location, pageContext }) => {
                                 dangerouslySetInnerHTML={{
                                     __html: post.html,
                                 }}
-                                onMouseUpCapture={selectedText}
+                                onPointerUpCapture={selectedText}
                             />
                         </section>
                     </article>

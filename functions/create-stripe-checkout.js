@@ -10,18 +10,38 @@ exports.handler = async function (event) {
         price = process.env.GATSBY_PREMIUM_PLAN_PRICE;
     }
 
-    const session = await stripe.checkout.sessions.create({
+    const userAllSubscriptions = await stripe.subscriptions.list({
         customer: customerId,
-        success_url: process.env.GATSBY_SITE_URL,
-        cancel_url: process.env.GATSBY_SITE_URL,
-        payment_method_types: ["card"],
-        line_items: [{ price: price, quantity: 1 }],
-        mode: "subscription",
-        //customer_email: email,
+        limit: 1,
     });
 
-    return {
-        statusCode: 200,
-        body: JSON.stringify(session),
-    };
+    let isUserHasSubscriptionAlready = false;
+    await userAllSubscriptions.data.forEach(async (element) => {
+        if (element.status == "active" && element.pause_collection == null) {
+            if (element.plan.id !== process.env.GATSBY_FREE_PLAN_PRICE) {
+                isUserHasSubscriptionAlready = true;
+            }
+        }
+    });
+
+    if (isUserHasSubscriptionAlready) {
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ message: "Error" }),
+        };
+    } else {
+        const session = await stripe.checkout.sessions.create({
+            customer: customerId,
+            success_url: process.env.GATSBY_SITE_URL,
+            cancel_url: process.env.GATSBY_SITE_URL,
+            payment_method_types: ["card"],
+            line_items: [{ price: price, quantity: 1 }],
+            mode: "subscription",
+        });
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify(session),
+        };
+    }
 };

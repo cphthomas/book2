@@ -121,13 +121,19 @@ const Post = ({ data, location, pageContext }) => {
         })
             .then(async (response) => response.json())
             .then(async (responseJson) => {
-                const stripePromise = await loadStripe(
-                    process.env.GATSBY_STRIPE_PK_KEY
-                );
-                const stripe = await stripePromise;
-                await stripe.redirectToCheckout({
-                    sessionId: responseJson.id,
-                });
+                if (responseJson.id) {
+                    const stripePromise = await loadStripe(
+                        process.env.GATSBY_STRIPE_PK_KEY
+                    );
+                    const stripe = await stripePromise;
+                    await stripe.redirectToCheckout({
+                        sessionId: responseJson.id,
+                    });
+                } else {
+                    alert(
+                        "Du har allerede et abonnement, men det er ikke aktiveret. Vent venligst i 30 minutter, hvis det ikke er aktiveret efter 30 minutter, så kontakt os venligst."
+                    );
+                }
             })
             .catch((error) => {
                 console.error(error);

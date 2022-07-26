@@ -80,6 +80,7 @@
 .account {
     color: white;
     padding: 4px 4px !important;
+    background: #15171a !important;
 }
 
 .account:hover {

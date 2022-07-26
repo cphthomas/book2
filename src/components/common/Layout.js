@@ -17,6 +17,7 @@ import FilterResults from "react-filter-search";
 
 // Styles
 import "../../styles/app.css";
+import { constants } from "../../utils/constants";
 
 /**
  * Main layout component
@@ -26,6 +27,8 @@ import "../../styles/app.css";
  * styles, and meta data for each page.
  *
  */
+//http://docs.google.com/uc?export=open&id=1EHvJmrwS2C_VrOXMyf4Kf5W9rpv5_NLf
+const NOW_TIME = Date.now();
 const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
     const helpImages = [
         "https://storage.googleapis.com/tepedu/helpvideos/koeb.mp4",
@@ -37,6 +40,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
     ];
     const [userLoggedIn, setUserLoggedIn] = useState("-1");
     const [isSubscribed, setIsSubscribed] = useState(false);
+    const [isMonthlySubscription, setIsMonthlySubscription] = useState(false);
     const [userStripeId, setUserStripeId] = useState("");
     const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
@@ -106,6 +110,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
 
         const userEmail = cookies.get("loggedInUser");
         let customerStripeId = "";
+        let customerPaymentIntent = "";
         if (cookies.get("loggedInUser")) {
             await fetch("/.netlify/functions/get-user", {
                 method: "POST",
@@ -126,21 +131,39 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                         setUserEmail(responseJson.user[0].user_email);
                         if (
                             responseJson.user[0].stripe_id &&
-                            responseJson.user[0].plan_id !== "0"
+                            (responseJson.user[0].plan_id ==
+                                constants.USER_PREMIUM_PLAN_ID ||
+                                responseJson.user[0].plan_id ==
+                                    constants.USER_PRO_PLAN_ID ||
+                                responseJson.user[0].plan_id ==
+                                    constants.USER_MONTHLY_SIXTY_PLAN_ID ||
+                                responseJson.user[0].user_subscription_end >=
+                                    NOW_TIME)
                         ) {
                             setIsSubscribed(true);
                             setUserStripeId(responseJson.user[0].stripe_id);
-                            //setUserEmail(responseJson.user[0].user_email);
+                            setUserEmail(responseJson.user[0].user_email);
                             customerStripeId = await responseJson.user[0]
                                 .stripe_id;
+                            customerPaymentIntent = await responseJson.user[0]
+                                .payment_intent;
                             if (responseJson.user[0].plan_id == 1) {
                                 setUserPlan("Pro");
-                            } else {
+                                setIsMonthlySubscription(true);
+                            } else if (responseJson.user[0].plan_id == 2) {
                                 setUserPlan("Premium");
+                                setIsMonthlySubscription(true);
+                            } else if (responseJson.user[0].plan_id == 3) {
+                                setUserPlan("Monthly");
+                                setIsMonthlySubscription(true);
+                            } else {
+                                setUserPlan("Fixed");
                             }
+                            // const dt =
+                            //     responseJson.user[0].user_subscription_start +
+                            //     "000";
                             const dt =
-                                responseJson.user[0].user_subscription_start +
-                                "000";
+                                responseJson.user[0].user_subscription_end;
 
                             const monthNames = [
                                 "January",
@@ -170,7 +193,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                         }
                     }
                 });
-            if (customerStripeId) {
+            if (customerStripeId && !customerPaymentIntent) {
                 await fetch("/.netlify/functions/customer-payment-method", {
                     method: "POST",
                     body: JSON.stringify({ customerStripeId }),
@@ -193,6 +216,18 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                     .then((responseJson) => {
                         setUserInvoiceUrl(
                             responseJson.data[0].hosted_invoice_url
+                        );
+                    });
+            }
+            if (customerStripeId && customerPaymentIntent) {
+                await fetch("/.netlify/functions/customer-receipt", {
+                    method: "POST",
+                    body: JSON.stringify({ customerPaymentIntent }),
+                })
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                        setUserInvoiceUrl(
+                            responseJson.charges.data[0].receipt_url
                         );
                     });
             }
@@ -407,20 +442,26 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                                                         >
                                                             Min konto
                                                         </a>
-                                                        <a
-                                                            className="dropdown-item"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#confirmCancelModal"
-                                                        >
-                                                            Afmeld abonnement
-                                                        </a>
-                                                        <a
-                                                            className="dropdown-item"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#changeCardModal"
-                                                        >
-                                                            Skift Kreditkort
-                                                        </a>
+                                                        {isMonthlySubscription && (
+                                                            <>
+                                                                <a
+                                                                    className="dropdown-item"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#confirmCancelModal"
+                                                                >
+                                                                    Afmeld
+                                                                    abonnement
+                                                                </a>
+                                                                <a
+                                                                    className="dropdown-item"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#changeCardModal"
+                                                                >
+                                                                    Skift
+                                                                    Kreditkort
+                                                                </a>
+                                                            </>
+                                                        )}
                                                     </div>
                                                 ) : (
                                                     ""
@@ -586,88 +627,95 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                         </div>
                     </div>
                 </div>
-                <div
-                    className="modal fade"
-                    id="confirmCancelModal"
-                    tabIndex="-1"
-                    role="dialog"
-                    aria-labelledby="confirmCancelModalLabel"
-                    aria-hidden="true"
-                >
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <b
-                                    className="modal-title"
-                                    id="confirmCancelModalLabel"
-                                >
-                                    Afmeld abonnement
-                                </b>
-                                <button
-                                    type="button"
-                                    className="close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                <p className="font14">
-                                    Er du sikker på du vil afmelde dit
-                                    abonnement?
-                                </p>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <button
-                                            className="btn btn-primary cnfrmBtn"
-                                            onClick={cancelSubscription}
+                {isMonthlySubscription && (
+                    <>
+                        <div
+                            className="modal fade"
+                            id="confirmCancelModal"
+                            tabIndex="-1"
+                            role="dialog"
+                            aria-labelledby="confirmCancelModalLabel"
+                            aria-hidden="true"
+                        >
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <b
+                                            className="modal-title"
+                                            id="confirmCancelModalLabel"
                                         >
-                                            Bekræft
+                                            Afmeld abonnement
+                                        </b>
+                                        <button
+                                            type="button"
+                                            className="close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                        >
+                                            <span aria-hidden="true">
+                                                &times;
+                                            </span>
                                         </button>
                                     </div>
-                                    {/* <div className="col-md-6">
-                                        <button>No</button>
-                                    </div> */}
+                                    <div className="modal-body">
+                                        <p className="font14">
+                                            Er du sikker på du vil afmelde dit
+                                            abonnement?
+                                        </p>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <button
+                                                    className="btn btn-primary cnfrmBtn"
+                                                    onClick={cancelSubscription}
+                                                >
+                                                    Bekræft
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div
-                    className="modal fade"
-                    id="changeCardModal"
-                    tabIndex="-1"
-                    role="dialog"
-                    aria-labelledby="changeCardModalLabel"
-                    aria-hidden="true"
-                >
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <b
-                                    className="modal-title"
-                                    id="changeCardModalLabel"
-                                >
-                                    Skift kreditkort
-                                </b>
-                                <button
-                                    type="button"
-                                    className="close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                <Elements stripe={stripePromise}>
-                                    <CardSetupForm customerId={userStripeId} />
-                                </Elements>
+                        <div
+                            className="modal fade"
+                            id="changeCardModal"
+                            tabIndex="-1"
+                            role="dialog"
+                            aria-labelledby="changeCardModalLabel"
+                            aria-hidden="true"
+                        >
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <b
+                                            className="modal-title"
+                                            id="changeCardModalLabel"
+                                        >
+                                            Skift kreditkort
+                                        </b>
+                                        <button
+                                            type="button"
+                                            className="close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                        >
+                                            <span aria-hidden="true">
+                                                &times;
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <Elements stripe={stripePromise}>
+                                            <CardSetupForm
+                                                customerId={userStripeId}
+                                            />
+                                        </Elements>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </>
+                )}
                 <div
                     className="modal fade"
                     id="exampleModal"
@@ -717,39 +765,45 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="marginWithBorder">
-                                    <p className="detail-head">Kreditkort:</p>
-                                    <div className="row font14">
-                                        <div className="col-md-4">
-                                            Brand: {userCardBrand}
-                                        </div>
-                                        <div className="col-md-4">
-                                            Sidste 4 cifre: {userCardDigit}
-                                        </div>
-                                        <div className="col-md-4">
-                                            Udløb: {userCardExp}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="marginWithBorder">
-                                    <p className="detail-head">
-                                        Sidste faktura:
-                                    </p>
-                                    <div className="row font14">
-                                        <div className="col-md-12">
-                                            <p>
-                                                Klik{" "}
-                                                <a
-                                                    target="_blank"
-                                                    href={userInvoiceUrl}
-                                                >
-                                                    her
-                                                </a>{" "}
-                                                for at se sidste faktura
-                                            </p>
+                                {isMonthlySubscription && (
+                                    <div className="marginWithBorder">
+                                        <p className="detail-head">
+                                            Kreditkort:
+                                        </p>
+                                        <div className="row font14">
+                                            <div className="col-md-4">
+                                                Brand: {userCardBrand}
+                                            </div>
+                                            <div className="col-md-4">
+                                                Sidste 4 cifre: {userCardDigit}
+                                            </div>
+                                            <div className="col-md-4">
+                                                Udløb: {userCardExp}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
+                                {userInvoiceUrl && (
+                                    <div className="marginWithBorder">
+                                        <p className="detail-head">
+                                            Sidste faktura:
+                                        </p>
+                                        <div className="row font14">
+                                            <div className="col-md-12">
+                                                <p>
+                                                    Klik{" "}
+                                                    <a
+                                                        target="_blank"
+                                                        href={userInvoiceUrl}
+                                                    >
+                                                        her
+                                                    </a>{" "}
+                                                    for at se sidste faktura
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

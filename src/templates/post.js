@@ -20,6 +20,7 @@ import { navigate } from "gatsby";
  * This file renders a single post and loads all the content.
  *
  */
+const NOW_TIME = Date.now();
 const Post = ({ data, location, pageContext }) => {
     // let audio;
     // if (typeof window !== "undefined") {
@@ -49,6 +50,7 @@ const Post = ({ data, location, pageContext }) => {
     const [selectedTextYCoor, setSelectedTextYCoor] = useState(0);
     const [enableTextToPlayPopup, setEnableTextToPlayPopup] = useState("none");
     const [userSelectedText, setUserSelectedText] = useState("");
+    const [userSubscriptionEndTime, setUserSubscriptionEndTime] = useState("");
     //const [audio, setAudio] = useState(new Audio(""));
 
     const [audioStatus, changeAudioStatus] = useState(false);
@@ -98,6 +100,9 @@ const Post = ({ data, location, pageContext }) => {
                         setEmail(responseJson.user[0].user_email);
                         setCustomerId(responseJson.user[0].stripe_id);
                         setUserPlanId(responseJson.user[0].plan_id);
+                        setUserSubscriptionEndTime(
+                            responseJson.user[0].user_subscription_end
+                        );
                         setUserLoggedIn(true);
                     } else {
                         cookies.remove("loggedInUser");
@@ -249,10 +254,10 @@ const Post = ({ data, location, pageContext }) => {
             </Helmet>
             <Layout>
                 {apiResponse &&
-                (fisrtTagPlan == constants.FREE_POST ||
-                    userPlanId == constants.USER_PREMIUM_PLAN_ID ||
-                    (userPlanId == constants.USER_PRO_PLAN_ID &&
-                        fisrtTagPlan == constants.PRO_POST)) ? (
+                (userPlanId == constants.USER_PREMIUM_PLAN_ID ||
+                    userPlanId == constants.USER_PRO_PLAN_ID ||
+                    userPlanId == constants.USER_MONTHLY_SIXTY_PLAN_ID ||
+                    userSubscriptionEndTime >= NOW_TIME) ? (
                     <article className="content">
                         <Helmet>
                             <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -279,10 +284,7 @@ const Post = ({ data, location, pageContext }) => {
                             />
                         </section>
                     </article>
-                ) : apiResponse &&
-                  !userLoggedIn &&
-                  (fisrtTagPlan == constants.PRO_POST ||
-                      fisrtTagPlan == constants.PREMIUM_POST) ? (
+                ) : apiResponse && !userLoggedIn ? (
                     <div className="card">
                         <div className="card-body">
                             <h2 className="whiteClr">
@@ -296,9 +298,10 @@ const Post = ({ data, location, pageContext }) => {
                     </div>
                 ) : apiResponse &&
                   userLoggedIn &&
-                  userPlanId == constants.USER_NO_PLAN_ID &&
-                  (fisrtTagPlan == constants.PRO_POST ||
-                      fisrtTagPlan == constants.PREMIUM_POST) ? (
+                  userPlanId != constants.USER_PREMIUM_PLAN_ID &&
+                  userPlanId != constants.USER_PRO_PLAN_ID &&
+                  userPlanId != constants.USER_MONTHLY_SIXTY_PLAN_ID &&
+                  userSubscriptionEndTime < NOW_TIME ? (
                     <div className="card">
                         <div className="card-body">
                             <h2 className="whiteClr accessMsg">
@@ -311,33 +314,65 @@ const Post = ({ data, location, pageContext }) => {
                                 <form onSubmit={handleSubmit}>
                                     <div>
                                         <label
-                                            data-tip="Adgang til Pro indhold, 49.00kr DKK / Pr. måned"
+                                            data-tip="Monthly 59 DKK"
                                             className="margin-right-20"
                                         >
                                             <input
                                                 type="radio"
                                                 name="size"
-                                                id="pro"
-                                                value="pro"
+                                                id="monthly_sixty"
+                                                value="monthly_sixty"
                                                 onChange={(e) =>
                                                     setPlanType(e.target.value)
                                                 }
                                                 required
                                             />{" "}
-                                            Pro
+                                            Monthly 59 DKK
                                         </label>
-                                        <label data-tip="Fuld adgang Premium for, 69.00kr DKK / Pr. måned">
+                                        <label
+                                            data-tip="6 months 290 - DKK one time price"
+                                            className="margin-right-20"
+                                        >
                                             <input
                                                 type="radio"
                                                 name="size"
-                                                id="premium"
-                                                value="premium"
+                                                id="six_months_one_time"
+                                                value="six_months_one_time"
                                                 required
                                                 onChange={(e) =>
                                                     setPlanType(e.target.value)
                                                 }
                                             />{" "}
-                                            Premium
+                                            6 months 290 - DKK
+                                        </label>
+                                        <label
+                                            data-tip="12 months 390 - DKK one time price"
+                                            className="margin-right-20"
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="size"
+                                                id="twelve_months_one_time"
+                                                value="twelve_months_one_time"
+                                                required
+                                                onChange={(e) =>
+                                                    setPlanType(e.target.value)
+                                                }
+                                            />{" "}
+                                            12 months 390 - DKK
+                                        </label>
+                                        <label data-tip="24 months 540 - DKK one time price">
+                                            <input
+                                                type="radio"
+                                                name="size"
+                                                id="twenty_four_months_one_time"
+                                                value="twenty_four_months_one_time"
+                                                required
+                                                onChange={(e) =>
+                                                    setPlanType(e.target.value)
+                                                }
+                                            />{" "}
+                                            24 months 540 - DKK
                                         </label>
                                     </div>
                                     <button
@@ -349,24 +384,6 @@ const Post = ({ data, location, pageContext }) => {
                                     </button>
                                 </form>
                             </div>
-                        </div>
-                    </div>
-                ) : apiResponse &&
-                  userLoggedIn &&
-                  userPlanId == constants.USER_PRO_PLAN_ID &&
-                  fisrtTagPlan == constants.PREMIUM_POST ? (
-                    <div className="card">
-                        <div className="card-body">
-                            <h2 className="whiteClr accessMsg">
-                                Dette kapitel er kun for premium abonnenter
-                            </h2>
-                            <button
-                                type="submit"
-                                className="btn btn-primary btn-premiume"
-                                onClick={premiumCheckout}
-                            >
-                                Opgrader til premium
-                            </button>
                         </div>
                     </div>
                 ) : (

@@ -20,12 +20,29 @@ exports.handler = async function ({ body, headers }, context) {
 
         const subscription = await stripeEvent.data.object;
         const newSubscriptionId = await subscription.subscription;
+        const paymentIntent = await subscription.payment_intent;
+        const subscriptionStart = Date.now();
+        let subscriptionEnd = "";
 
         let plan = "0";
         if (subscription.amount_total == "4900") {
             plan = "1";
+            subscriptionEnd = Date.now();
         } else if (subscription.amount_total == "6900") {
             plan = "2";
+            subscriptionEnd = Date.now();
+        } else if (subscription.amount_total == "5900") {
+            plan = "3";
+            subscriptionEnd = Date.now();
+        } else if (subscription.amount_total == "29000") {
+            plan = "4";
+            subscriptionEnd = subscriptionStart + 1000 * 60 * 60 * 24 * 180;
+        } else if (subscription.amount_total == "39000") {
+            plan = "5";
+            subscriptionEnd = subscriptionStart + 1000 * 60 * 60 * 24 * 360;
+        } else if (subscription.amount_total == "54000") {
+            plan = "6";
+            subscriptionEnd = subscriptionStart + 1000 * 60 * 60 * 24 * 720;
         }
 
         try {
@@ -34,10 +51,11 @@ exports.handler = async function ({ body, headers }, context) {
             await updateUser(
                 connection,
                 subscription.customer,
-                stripeEvent.created,
-                stripeEvent.created,
+                subscriptionEnd,
+                subscriptionStart,
                 plan,
-                subscription.customer_details.email
+                subscription.customer_details.email,
+                paymentIntent
             );
 
             await connection.end();
@@ -90,15 +108,23 @@ async function updateUser(
     planEnd,
     planStart,
     plan,
-    stripeEmail
+    stripeEmail,
+    paymentIntent
 ) {
     return new Promise((resolve, reject) => {
         connection.query(
             {
                 sql:
-                    "UPDATE external_users SET plan_id = ?, user_subscription_end = ?, user_subscription_start = ?, stripe_mail = ? WHERE stripe_id = ?",
+                    "UPDATE external_users SET plan_id = ?, user_subscription_end = ?, user_subscription_start = ?, stripe_mail = ?, payment_intent = ? WHERE stripe_id = ?",
                 timeout: 10000,
-                values: [plan, planEnd, planStart, stripeEmail, stripeId],
+                values: [
+                    plan,
+                    planEnd,
+                    planStart,
+                    stripeEmail,
+                    paymentIntent,
+                    stripeId,
+                ],
             },
             function (error, results, fields) {
                 if (error) reject(err);

@@ -142,7 +142,7 @@ export default function SignUp() {
 
                     <div className="form-group">
                         <label>Vælg abonnement</label>
-                        <div>
+                        {/* <div>
                             <label
                                 data-tip="Adgang til Statistik Pro indhold, 49.00kr DKK / Pr. måned"
                                 className="margin-right-20"
@@ -173,6 +173,73 @@ export default function SignUp() {
                                     disabled={isFormSubmitted}
                                 />{" "}
                                 Premium
+                            </label>
+                        </div> */}
+                        <div>
+                            <label
+                                data-tip="Monthly 59 DKK"
+                                className="margin-right-20"
+                            >
+                                <input
+                                    type="radio"
+                                    name="size"
+                                    id="monthly_sixty"
+                                    value="monthly_sixty"
+                                    onChange={(e) =>
+                                        setPlanType(e.target.value)
+                                    }
+                                    required
+                                    disabled={isFormSubmitted}
+                                />{" "}
+                                Monthly 59 DKK
+                            </label>
+                            <label
+                                data-tip="6 months 290 - DKK one time price"
+                                className="margin-right-20"
+                            >
+                                <input
+                                    type="radio"
+                                    name="size"
+                                    id="six_months_one_time"
+                                    value="six_months_one_time"
+                                    required
+                                    onChange={(e) =>
+                                        setPlanType(e.target.value)
+                                    }
+                                    disabled={isFormSubmitted}
+                                />{" "}
+                                6 months 290 - DKK
+                            </label>
+                            <label
+                                data-tip="12 months 390 - DKK one time price"
+                                className="margin-right-20"
+                            >
+                                <input
+                                    type="radio"
+                                    name="size"
+                                    id="twelve_months_one_time"
+                                    value="twelve_months_one_time"
+                                    required
+                                    onChange={(e) =>
+                                        setPlanType(e.target.value)
+                                    }
+                                    disabled={isFormSubmitted}
+                                />{" "}
+                                12 months 390 - DKK
+                            </label>
+                            <label data-tip="24 months 540 - DKK one time price">
+                                <input
+                                    type="radio"
+                                    name="size"
+                                    id="twenty_four_months_one_time"
+                                    value="twenty_four_months_one_time"
+                                    required
+                                    onChange={(e) =>
+                                        setPlanType(e.target.value)
+                                    }
+                                    disabled={isFormSubmitted}
+                                />{" "}
+                                24 months 540 - DKK
                             </label>
                         </div>
                     </div>

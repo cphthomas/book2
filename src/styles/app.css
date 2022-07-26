@@ -784,7 +784,7 @@ h6 {
 }
 
 .site-nav-right {
-    background: #15171a;
+    background: #15171a !important;
 }
 
 /* .site-nav-button a:hover {

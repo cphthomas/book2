@@ -385,7 +385,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                                     </div>
                                 ) : null}
                                 {postPath != "/" ? (
-                                    <div class="search-container-main site-nav-right">
+                                    <div class="search-container-main">
                                         <input
                                             class="search-main"
                                             id="searchleft"

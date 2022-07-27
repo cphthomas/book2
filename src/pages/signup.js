@@ -177,24 +177,7 @@ export default function SignUp() {
                         </div> */}
                         <div>
                             <label
-                                data-tip="Månedsabonnement 59,- DKK mest fleksibelt afmeld når det passer dig"
-                                className="margin-right-20"
-                            >
-                                <input
-                                    type="radio"
-                                    name="size"
-                                    id="monthly_sixty"
-                                    value="monthly_sixty"
-                                    onChange={(e) =>
-                                        setPlanType(e.target.value)
-                                    }
-                                    required
-                                    disabled={isFormSubmitted}
-                                />{" "}
-                                Pr måned 59,- DKK
-                            </label>
-                            <label
-                                data-tip="6 months 290 - DKK one time price"
+                                data-tip="6 måneder 290,- DKK - Engangsbeløb billigt 48,33 pr. måned"
                                 className="margin-right-20"
                             >
                                 <input
@@ -208,10 +191,10 @@ export default function SignUp() {
                                     }
                                     disabled={isFormSubmitted}
                                 />{" "}
-                                6 months 290 - DKK
+                                6 Måneder 290,- DKK
                             </label>
                             <label
-                                data-tip="12 months 390 - DKK one time price"
+                                data-tip="1 år 390,- DKK - Engangsbeløb billigere 32,50 pr. måned"
                                 className="margin-right-20"
                             >
                                 <input
@@ -225,9 +208,9 @@ export default function SignUp() {
                                     }
                                     disabled={isFormSubmitted}
                                 />{" "}
-                                12 months 390 - DKK
+                                1 år 390,- DKK
                             </label>
-                            <label data-tip="24 months 540 - DKK one time price">
+                            <label data-tip="2 år 550,- DKK - Engangsbeløb billigst 22,50 pr. måned">
                                 <input
                                     type="radio"
                                     name="size"
@@ -239,7 +222,24 @@ export default function SignUp() {
                                     }
                                     disabled={isFormSubmitted}
                                 />{" "}
-                                24 months 540 - DKK
+                                2 år 540,- DKK
+                            </label>
+                            <label
+                                data-tip="Månedsabonnement 59,- DKK - Mest fleksibelt afmeld når det passer dig"
+                                className="margin-right-20"
+                            >
+                                <input
+                                    type="radio"
+                                    name="size"
+                                    id="monthly_sixty"
+                                    value="monthly_sixty"
+                                    onChange={(e) =>
+                                        setPlanType(e.target.value)
+                                    }
+                                    required
+                                    disabled={isFormSubmitted}
+                                />{" "}
+                                Pr. måned 59,- DKK
                             </label>
                         </div>
                     </div>

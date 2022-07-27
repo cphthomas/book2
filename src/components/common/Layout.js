@@ -569,7 +569,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                                             href="/term-service"
                                             target="_blank"
                                         >
-                                            Abonnementsbetingelser
+                                            Salgsbetingelser
                                         </a>
                                     </li>
                                     <li>

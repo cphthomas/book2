@@ -212,7 +212,10 @@ export default function SignUp() {
                                 />{" "}
                                 1 år 390,- DKK
                             </label>
-                            <label data-tip="2 år 540,- DKK - Engangsbeløb billigst 22,50 pr. måned">
+                            <label
+                                data-tip="2 år 540,- DKK - Engangsbeløb billigst 22,50 pr. måned"
+                                className="margin-right-20"
+                            >
                                 <input
                                     type="radio"
                                     name="size"

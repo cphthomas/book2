@@ -177,7 +177,7 @@ export default function SignUp() {
                         </div> */}
                         <div>
                             <label
-                                data-tip="Monthly 59 DKK"
+                                data-tip="Månedsabonnement 59,- DKK mest fleksibelt afmeld når det passer dig"
                                 className="margin-right-20"
                             >
                                 <input
@@ -191,7 +191,7 @@ export default function SignUp() {
                                     required
                                     disabled={isFormSubmitted}
                                 />{" "}
-                                Monthly 59 DKK
+                                Pr måned 59,- DKK
                             </label>
                             <label
                                 data-tip="6 months 290 - DKK one time price"

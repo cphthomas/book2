@@ -101,7 +101,9 @@ export default function SignUp() {
             </Helmet>
             <div className="form-div customFormDiv">
                 <form onSubmit={handleSubmit}>
-                    <h1 className="page-title">Køb adgang Statistik</h1>
+                    <h1 className="page-title">
+                        Køb adgang til Statistikbogen
+                    </h1>
 
                     <div className="form-group">
                         <label>Navn</label>
@@ -259,7 +261,7 @@ export default function SignUp() {
                     <p className="tnc">
                         Ved tilmeldingen bekræfter du at have læst{" "}
                         <a href="/term-service" target="_blank">
-                            abonnementsbetingelser
+                            salgsbetingelser
                         </a>{" "}
                         &{" "}
                         <a href="/privacy-policy" target="_blank">

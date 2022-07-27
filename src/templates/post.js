@@ -390,7 +390,7 @@ const Post = ({ data, location, pageContext }) => {
                     <div className="loadwrap">
                         <div>
                             <div className="bounceball"></div>
-                            <div className="loadText">Indlæser nu!</div>
+                            <div className="loadText">Indlæser!</div>
                         </div>
                     </div>
                 )}

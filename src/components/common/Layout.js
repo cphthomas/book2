@@ -154,10 +154,10 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                                 setUserPlan("Premium");
                                 setIsMonthlySubscription(true);
                             } else if (responseJson.user[0].plan_id == 3) {
-                                setUserPlan("Monthly");
+                                setUserPlan("Månedlig");
                                 setIsMonthlySubscription(true);
                             } else {
-                                setUserPlan("Fixed");
+                                setUserPlan("Engangsbeløb");
                             }
                             // const dt =
                             //     responseJson.user[0].user_subscription_start +
@@ -166,16 +166,16 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                                 responseJson.user[0].user_subscription_end;
 
                             const monthNames = [
-                                "January",
-                                "February",
-                                "March",
+                                "Januar",
+                                "Februar",
+                                "Marts",
                                 "April",
-                                "May",
-                                "June",
-                                "July",
+                                "Maj",
+                                "Juni",
+                                "Juli",
                                 "August",
                                 "September",
-                                "October",
+                                "Oktober",
                                 "November",
                                 "December",
                             ];

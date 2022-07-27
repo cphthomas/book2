@@ -223,7 +223,7 @@ export default function SignUp() {
                                     disabled={isFormSubmitted}
                                 />{" "}
                                 2 år 540,- DKK{" "}
-                            </label>
+                            </label>{" "}
                             <label
                                 data-tip="Månedsabonnement 59,- DKK - Mest fleksibelt afmeld når det passer dig"
                                 className="margin-right-20"

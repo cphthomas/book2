@@ -254,7 +254,8 @@ const Post = ({ data, location, pageContext }) => {
             </Helmet>
             <Layout>
                 {apiResponse &&
-                (userPlanId == constants.USER_PREMIUM_PLAN_ID ||
+                (fisrtTagPlan == constants.FREE_POST ||
+                    userPlanId == constants.USER_PREMIUM_PLAN_ID ||
                     userPlanId == constants.USER_PRO_PLAN_ID ||
                     userPlanId == constants.USER_MONTHLY_SIXTY_PLAN_ID ||
                     userSubscriptionEndTime >= NOW_TIME) ? (
@@ -441,7 +442,7 @@ Post.propTypes = {
 export default Post;
 
 export const postQuery = graphql`
-    query ($slug: String!) {
+    query($slug: String!) {
         ghostPost(
             slug: { eq: $slug }
             tags: { elemMatch: { name: { eq: "Statistik" } } }

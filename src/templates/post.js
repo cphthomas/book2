@@ -51,6 +51,7 @@ const Post = ({ data, location, pageContext }) => {
     const [enableTextToPlayPopup, setEnableTextToPlayPopup] = useState("none");
     const [userSelectedText, setUserSelectedText] = useState("");
     const [userSubscriptionEndTime, setUserSubscriptionEndTime] = useState("");
+    const [speechTextEnable, setSpeechTextEnable] = useState(false);
     //const [audio, setAudio] = useState(new Audio(""));
 
     const [audioStatus, changeAudioStatus] = useState(false);
@@ -178,7 +179,8 @@ const Post = ({ data, location, pageContext }) => {
         setSpeechTextEnable(checked);
         if (checked) {
         } else {
-            audio.pause();
+            // audio.pause();
+            myRef.current.pause();
         }
     }
 
@@ -191,11 +193,14 @@ const Post = ({ data, location, pageContext }) => {
                 setEnableTextToPlayPopup("block");
                 setSelectedTextXCoor(event.pageX);
                 setSelectedTextYCoor(event.pageY);
+                if (speechTextEnable) {
+                    playText(textToSpeech);
+                }
             }
         }
     }
 
-    function playText() {
+    function playText(textToSpeech) {
         myRef.current.pause();
         myRef.current.currentTime = 0;
         setEnableTextToPlayPopup("none");
@@ -203,7 +208,7 @@ const Post = ({ data, location, pageContext }) => {
             "https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyBpsYZKqwyVctQKamQf4StfhvSWSSz-2lE";
         const data = {
             input: {
-                text: userSelectedText,
+                text: textToSpeech,
             },
             voice: {
                 languageCode: "da-dk",
@@ -236,7 +241,7 @@ const Post = ({ data, location, pageContext }) => {
 
     return (
         <div>
-            <span
+            {/* <span
                 className="popup-tag"
                 style={{
                     top: selectedTextYCoor,
@@ -246,7 +251,7 @@ const Post = ({ data, location, pageContext }) => {
                 onClick={playText}
             >
                 Tale
-            </span>
+            </span> */}
             <audio ref={myRef} src="" />
             <MetaData data={data} location={location} type="article" />
             <Helmet>
@@ -271,6 +276,18 @@ const Post = ({ data, location, pageContext }) => {
                                 />
                             </figure>
                         ) : null}
+                        <div className="switchBtn">
+                            <BootstrapSwitchButton
+                                checked={speechTextEnable}
+                                onstyle="dark"
+                                offstyle="dark"
+                                style="border"
+                                onlabel="Tale"
+                                offlabel="Ingen tale"
+                                onChange={enableDisableSpeech}
+                                style={{ border: "none" }}
+                            />
+                        </div>
                         <aside className="toc-container">
                             <div className="toc"></div>
                         </aside>
@@ -281,7 +298,7 @@ const Post = ({ data, location, pageContext }) => {
                                 dangerouslySetInnerHTML={{
                                     __html: post.html,
                                 }}
-                                onPointerUpCapture={selectedText}
+                                onMouseUpCapture={selectedText}
                             />
                         </section>
                     </article>

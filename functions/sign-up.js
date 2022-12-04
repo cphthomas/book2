@@ -34,9 +34,14 @@ exports.handler = async function (event) {
         });
 
         // subscribe the new customer to the free plan
-        await stripe.subscriptions.create({
+        const createdSubscription = await stripe.subscriptions.create({
             customer: customer.id,
             items: [{ price: process.env.GATSBY_FREE_PLAN_PRICE }],
+        });
+
+        // update subscription, pause payment
+        await stripe.subscriptions.update(createdSubscription.id, {
+            pause_collection: { behavior: "mark_uncollectible" },
         });
 
         userIp = await uniqid();
